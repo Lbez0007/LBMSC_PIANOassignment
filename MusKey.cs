@@ -21,7 +21,7 @@ namespace SimplePiano
             notePitch = iNote;
             this.BackColor = Color.White;
             this.Location = new Point(x, y);
-            this.Size = new Size(20, 80);
+            this.Size = new Size(30, 120);
             this.Visible = true;
         }
 
@@ -38,7 +38,7 @@ namespace SimplePiano
         public BlackMusKey(int iNote, int x, int y) : base(iNote, x, y)
         {
             this.BackColor = Color.Black;
-            this.Size = new Size(20, 60);
+            this.Size = new Size(30, 70);
         }
 
     }

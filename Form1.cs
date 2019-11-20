@@ -13,10 +13,11 @@ namespace SimplePiano
 {
     public partial class Form1 : Form
     {
+
         int count = 0;
         int xLoc = 50;
         int yLoc = 30;
-        int[] xPos = { 10, 30, 70, 90, 110, 150, 170, 210, 230, 250 };
+        int[] xPos = { 15, 45, 105, 135, 165, 225, 255, 315, 345, 375 };
         SoundPlayer sp;
         int[] whitePitch = { 1, 3, 5, 6, 8, 10, 12, 13, 15, 17, 18, 20, 22, 24 };
         int[] blackPitch = { 2, 4, 7, 9, 11, 14, 16, 19, 21, 23 };
@@ -31,22 +32,22 @@ namespace SimplePiano
             MusKey mk;
             BlackMusKey bmk;
 
-            for (int k = 0; k < 7; k++)  //Octave - containes notes A-G, thus 7 notes
+            for (int k = 0; k < 14; k++)  //Octave - containes notes A-G, thus 7 notes
             {
-                int pitch = whitePitch[k];
-                int xPos = k * 20; //since MusicKey is 20 units wide
-                mk = new MusKey(pitch, xPos, 50);
+                int noteNo = whitePitch[k];
+                int xPos = k * 30; //since MusicKey is 20 units wide
+                mk = new MusKey(noteNo, xPos, 50);
                 mk.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button1_MouseDown);
                 mk.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button1_MouseUp);
                 this.panel1.Controls.Add(mk);
             }
 
             int xOffset = 20;
-            for (int k = 0; k < 5; k++)  //Octave - containes notes A-G, thus 7 notes
+            for (int k = 0; k < 10; k++)  //Octave - containes notes A-G, thus 7 notes
             {
-                int pitch = blackPitch[k];
+                int noteNo = blackPitch[k];
                 int xPos = this.xPos[k]; //black key only exists for #notes, which are at irregular positions, hence deifned in array xPos
-                bmk = new BlackMusKey(pitch, xPos, 50);
+                bmk = new BlackMusKey(noteNo, xPos, 50);
                 bmk.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button1_MouseDown);
                 bmk.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button1_MouseUp);
                 this.panel1.Controls.Add(bmk);
@@ -73,8 +74,10 @@ namespace SimplePiano
                         timer1.Enabled = true;
                         count = 0; //incremented by timer1_Tick event handler
                         timer1.Start();
-                        sp.SoundLocation = (mk.notePitch.ToString() + ".wav");
-                        sp.Play();
+                        int intPitch = mk.notePitch;
+                        String stringPitch = intPitch.ToString();
+                        sp.SoundLocation = (@"C:\Users\mikesciclunacalleja\source\repos\CIS2201---Piano-Assignment\Sound_files\" + stringPitch + ".wav");
+                        sp.Play(); 
                     }
                 }
             }
@@ -90,7 +93,7 @@ namespace SimplePiano
                     if (e.Button == MouseButtons.Left)
                     {
                         timer1.Enabled = false;
-                        sp.Stop();
+                        //sp.Stop();
                         string bNoteShape = null;
                         int duration = 0;
                         if (count >= 11)
