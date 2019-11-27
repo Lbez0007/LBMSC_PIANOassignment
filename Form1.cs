@@ -14,6 +14,7 @@ namespace SimplePiano
     public partial class Form1 : Form
     {
 
+        int count = 0;
         int xLoc = 50;
         int yLoc = 30;
         int[] xPos = { 15, 45, 105, 135, 165, 225, 255, 315, 345, 375 };
@@ -53,16 +54,17 @@ namespace SimplePiano
                 this.panel1.Controls[this.panel1.Controls.Count - 1].BringToFront();
             }
         }
-        int count = 0;
+
         private void timer1_Tick(object sender, EventArgs e)
         {
+
             count++;
-            textBox1.Text = count.ToString();
         }
 
         private void button1_MouseDown(object sender, MouseEventArgs e)
         {
-            SoundPlayer sp = new SoundPlayer();            
+            SoundPlayer sp = new SoundPlayer();
+
             foreach (MusKey mk in this.panel1.Controls)
             {
                 if (sender == mk)
@@ -73,8 +75,8 @@ namespace SimplePiano
                         timer1.Start();
                         int intPitch = mk.notePitch;
                         String stringPitch = intPitch.ToString();
-                        //sp.SoundLocation = (@"C:\Users\Dell\Source\Repos\Lbez0007\LBMSC_PIANOassignment\Sound_files\" + stringPitch + ".wav");                   
-                        sp.SoundLocation = (@"C:\Users\mikesciclunacalleja\source\repos\Piano Assignment\SimplePiano\Sound_files\" + stringPitch + ".wav");
+                        sp.SoundLocation = (@"C:\Users\Dell\Source\Repos\Lbez0007\LBMSC_PIANOassignment\Sound_files\" + stringPitch + ".wav");                   
+                        //sp.SoundLocation = (@"C:\Users\mikesciclunacalleja\source\repos\CIS2201---Piano-Assignment\Sound_files\" + stringPitch + ".wav");
                         sp.Play(); 
                     }
                 }
@@ -91,14 +93,13 @@ namespace SimplePiano
                     if (e.Button == MouseButtons.Left)
                     {
                         timer1.Stop();
-                        
                         string bNoteShape = null;
                         int duration = 0;
 
-                        if ((count >= 16) && (count <= 20))
+                        if ((count >= 16))
                         {
                             bNoteShape = "SemiBreve";
-                            duration = (16 + 20) / 2;
+                            duration = (16);
                         }
                         if ((count >= 11) && (count <= 15))
                         {
@@ -126,13 +127,10 @@ namespace SimplePiano
                             duration = 1;
                         }
 
-                        //...........
-
                         MusicNote mn = new MusicNote(mk.notePitch, duration, bNoteShape);
                         mn.Location = new Point(xLoc, yLoc);
                         this.panel2.Controls.Add(mn);
-                        xLoc = xLoc + 30;
-                        //yLoc = yLoc + (mk.noteNo) *10;
+                        xLoc = xLoc + 15;
 
 
                     }

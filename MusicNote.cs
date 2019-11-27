@@ -11,8 +11,7 @@ namespace SimplePiano
 {
     class MusicNote : PictureBox
     {
-        //public string path = @"C:\Users\Dell\Source\Repos\Lbez0007\LBMSC_PIANOassignment\Image_files\";
-        public string path = @"C:\Users\mikesciclunacalleja\source\repos\Piano Assignment\SimplePiano\Image_files\";
+        public string path = @"C:\Users\Dell\Source\Repos\Lbez0007\LBMSC_PIANOassignment\Image_files\";
         public int noteNo;  //music key
         public string noteShape; //specifies name of note
         public string fileNoteShape;
@@ -23,16 +22,20 @@ namespace SimplePiano
             noteNo = iNoteNo;
             noteShape = iNoteShape;
             noteDuration = iNoteDuration;
-            fileNoteShape = noteShape + ".bmp";
+            fileNoteShape = noteShape + ".png";
             var test = (Path.Combine(path, fileNoteShape));
-            MessageBox.Show(test);
+            //MessageBox.Show(test);
 
             //inherited properties from PictureBox Windows Forms class
-            Location = new Point(100, 50);
-            Size = new Size(40, 40);
             Bitmap bmp = new Bitmap (Path.Combine(path, fileNoteShape));
-            Image = bmp; 
+            Image = bmp;
+            Size = new Size(40, 40);
+            // Location = new Point(y, 30);
             BackColor = Color.Transparent;
+
+
+
+     
         }
 
         protected override void OnPaint(PaintEventArgs pe)
