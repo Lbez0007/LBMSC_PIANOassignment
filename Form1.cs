@@ -57,13 +57,13 @@ namespace SimplePiano
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            count = count++;
+
+            count++;
         }
 
         private void button1_MouseDown(object sender, MouseEventArgs e)
         {
             SoundPlayer sp = new SoundPlayer();
-            int count;
 
             foreach (MusKey mk in this.panel1.Controls)
             {
@@ -71,12 +71,12 @@ namespace SimplePiano
                 {
                     if (e.Button == MouseButtons.Left)
                     {
-                        timer1.Enabled = true;
                         count = 0; //incremented by timer1_Tick event handler
                         timer1.Start();
                         int intPitch = mk.notePitch;
                         String stringPitch = intPitch.ToString();
-                        sp.SoundLocation = (@"C:\Users\mikesciclunacalleja\source\repos\CIS2201---Piano-Assignment\Sound_files\" + stringPitch + ".wav");
+                        sp.SoundLocation = (@"C:\Users\Dell\Source\Repos\Lbez0007\LBMSC_PIANOassignment\Sound_files\" + stringPitch + ".wav");                   
+                        //sp.SoundLocation = (@"C:\Users\mikesciclunacalleja\source\repos\CIS2201---Piano-Assignment\Sound_files\" + stringPitch + ".wav");
                         sp.Play(); 
                     }
                 }
@@ -92,32 +92,55 @@ namespace SimplePiano
                 {
                     if (e.Button == MouseButtons.Left)
                     {
-                        timer1.Enabled = false;
-                        //sp.Stop();
+                        timer1.Stop();
                         string bNoteShape = null;
                         int duration = 0;
-                        if (count >= 11)
+
+                        if ((count >= 16))
                         {
                             bNoteShape = "SemiBreve";
-                            duration = 11;
+                            duration = (16);
                         }
-                        if ((count >= 8) && (count <= 10))
+                        if ((count >= 11) && (count <= 15))
                         {
                             bNoteShape = "DotMinim";
-                            duration = (8 + 10) / 2;
+                            duration = (11 + 15) / 2;
+                        }
+                        if ((count >= 6) && (count <= 10))
+                        {
+                            bNoteShape = "Minim";
+                            duration = (6 + 10) / 2;
+                        }
+                        if ((count >= 3) && (count <= 5))
+                        {
+                            bNoteShape = "Crotchet";
+                            duration = (3 + 5) / 2;
+                        }
+                        if (count == 2)
+                        {
+                            bNoteShape = "Quaver";
+                            duration = 2;
+                        }
+                        if (count <= 1)
+                        {
+                            bNoteShape = "SemiQuaver";
+                            duration = 1;
                         }
 
-                        //...........
-
-                        //MusicNote mn = new MusicNote(mk.notePitch, duration, bNoteShape);
-                        //mn.Location = new Point(xLoc, yLoc);
-                        //this.panel2.Controls.Add(this.mn);
-                        //xLoc = xLoc + 15;
+                        MusicNote mn = new MusicNote(mk.notePitch, duration, bNoteShape);
+                        mn.Location = new Point(xLoc, yLoc);
+                        this.panel2.Controls.Add(mn);
+                        xLoc = xLoc + 15;
 
 
                     }
                 }
             }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
