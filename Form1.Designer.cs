@@ -37,16 +37,18 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(144, 237);
+            this.panel1.Location = new System.Drawing.Point(288, 456);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(501, 171);
+            this.panel1.Size = new System.Drawing.Size(1002, 329);
             this.panel1.TabIndex = 0;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(313, 195);
+            this.textBox1.Location = new System.Drawing.Point(1094, 389);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(6);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(196, 31);
             this.textBox1.TabIndex = 2;
             // 
             // timer1
@@ -56,20 +58,22 @@
             // panel2
             // 
             this.panel2.BackgroundImage = global::SimplePiano.Properties.Resources.Staff1;
-            this.panel2.Location = new System.Drawing.Point(31, 12);
+            this.panel2.Location = new System.Drawing.Point(62, 23);
+            this.panel2.Margin = new System.Windows.Forms.Padding(6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(642, 164);
+            this.panel2.Size = new System.Drawing.Size(1284, 315);
             this.panel2.TabIndex = 3;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1600, 865);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

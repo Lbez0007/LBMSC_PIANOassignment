@@ -14,7 +14,6 @@ namespace SimplePiano
     public partial class Form1 : Form
     {
 
-        int count = 0;
         int xLoc = 50;
         int yLoc = 30;
         int[] xPos = { 15, 45, 105, 135, 165, 225, 255, 315, 345, 375 };
@@ -54,18 +53,16 @@ namespace SimplePiano
                 this.panel1.Controls[this.panel1.Controls.Count - 1].BringToFront();
             }
         }
-
+        int count = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-
-            count = count++;
+            count++;
+            textBox1.Text = count.ToString();
         }
 
         private void button1_MouseDown(object sender, MouseEventArgs e)
         {
-            SoundPlayer sp = new SoundPlayer();
-            int count;
-
+            SoundPlayer sp = new SoundPlayer();            
             foreach (MusKey mk in this.panel1.Controls)
             {
                 if (sender == mk)
@@ -94,6 +91,7 @@ namespace SimplePiano
                     if (e.Button == MouseButtons.Left)
                     {
                         timer1.Stop();
+                        
                         string bNoteShape = null;
                         int duration = 0;
 
@@ -133,7 +131,8 @@ namespace SimplePiano
                         MusicNote mn = new MusicNote(mk.notePitch, duration, bNoteShape);
                         mn.Location = new Point(xLoc, yLoc);
                         this.panel2.Controls.Add(mn);
-                        xLoc = xLoc + 15;
+                        xLoc = xLoc + 30;
+                        //yLoc = yLoc + (mk.noteNo) *10;
 
 
                     }

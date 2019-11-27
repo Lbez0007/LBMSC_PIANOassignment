@@ -31,7 +31,7 @@ namespace SimplePiano
             Location = new Point(100, 50);
             Size = new Size(40, 40);
             Bitmap bmp = new Bitmap (Path.Combine(path, fileNoteShape));
-            Image = bmp;
+            Image = bmp; 
             BackColor = Color.Transparent;
         }
 
