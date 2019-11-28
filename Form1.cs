@@ -15,9 +15,11 @@ namespace SimplePiano
     {
 
         int count = 0;
-        int xLoc = 50;
-        int yLoc = 30;
-        int[] xPos = { 15, 45, 105, 135, 165, 225, 255, 315, 345, 375 };
+        int xLoc = 10;
+        int yLoc = 10;
+        int[] xPos = { 15, 45, 105, 135, 165, 225, 255, 315, 345, 375};
+        int[] y = {0,137,137,128,128,119,110,110,101,101,92,92,83,74,74,65,65,56,47,47,38,38,29,29,20};
+        int[] x = {10,50,90,130,170,210,250, 290, 330, 370, 410, 450,490,530,570,610,650,690,730,770,810};
         SoundPlayer sp;
         int[] whitePitch = { 1, 3, 5, 6, 8, 10, 12, 13, 15, 17, 18, 20, 22, 24 };
         int[] blackPitch = { 2, 4, 7, 9, 11, 14, 16, 19, 21, 23 };
@@ -36,10 +38,12 @@ namespace SimplePiano
             {
                 int noteNo = whitePitch[k];
                 int xPos = k * 30; //since MusicKey is 20 units wide
-                mk = new MusKey(noteNo, xPos, 50);
+                bool sharp = false;
+                mk = new MusKey(noteNo, xPos, 50, sharp);
                 mk.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button1_MouseDown);
                 mk.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button1_MouseUp);
                 this.panel1.Controls.Add(mk);
+                
             }
 
             int xOffset = 20;
@@ -47,17 +51,18 @@ namespace SimplePiano
             {
                 int noteNo = blackPitch[k];
                 int xPos = this.xPos[k]; //black key only exists for #notes, which are at irregular positions, hence deifned in array xPos
-                bmk = new BlackMusKey(noteNo, xPos, 50);
+                bool sharp = true;
+                bmk = new BlackMusKey(noteNo, xPos, 50, sharp);
                 bmk.MouseDown += new System.Windows.Forms.MouseEventHandler(this.button1_MouseDown);
                 bmk.MouseUp += new System.Windows.Forms.MouseEventHandler(this.button1_MouseUp);
                 this.panel1.Controls.Add(bmk);
                 this.panel1.Controls[this.panel1.Controls.Count - 1].BringToFront();
+                
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             count++;
         }
 
@@ -73,17 +78,17 @@ namespace SimplePiano
                     {
                         count = 0; //incremented by timer1_Tick event handler
                         timer1.Start();
-                        int intPitch = mk.notePitch;
+                        int intPitch = mk.noteNo;
                         String stringPitch = intPitch.ToString();
-                        sp.SoundLocation = (@"C:\Users\Dell\Source\Repos\Lbez0007\LBMSC_PIANOassignment\Sound_files\" + stringPitch + ".wav");                   
-                        //sp.SoundLocation = (@"C:\Users\mikesciclunacalleja\source\repos\CIS2201---Piano-Assignment\Sound_files\" + stringPitch + ".wav");
+                        //sp.SoundLocation = (@"C:\Users\Dell\Source\Repos\Lbez0007\LBMSC_PIANOassignment\Sound_files\" + stringPitch + ".wav");                   
+                        sp.SoundLocation = (@"C:\Users\mikesciclunacalleja\source\repos\CIS2201---Piano-Assignment\Sound_files\" + stringPitch + ".wav");
                         sp.Play(); 
                     }
                 }
             }
 
         }
-
+        int xCount = 0;
         private void button1_MouseUp(object sender, MouseEventArgs e)
         {
             foreach (MusKey mk in this.panel1.Controls)
@@ -92,6 +97,7 @@ namespace SimplePiano
                 {
                     if (e.Button == MouseButtons.Left)
                     {
+
                         timer1.Stop();
                         string bNoteShape = null;
                         int duration = 0;
@@ -127,11 +133,12 @@ namespace SimplePiano
                             duration = 1;
                         }
 
-                        MusicNote mn = new MusicNote(mk.notePitch, duration, bNoteShape);
-                        mn.Location = new Point(xLoc, yLoc);
+                        MusicNote mn = new MusicNote(mk.noteNo, duration, bNoteShape, mk.sharp);
                         this.panel2.Controls.Add(mn);
-                        xLoc = xLoc + 15;
-
+                        xLoc = x[xCount];
+                        xCount++;
+                        yLoc = y[mk.noteNo];
+                        mn.Location = new Point(xLoc, yLoc);
 
                     }
                 }
@@ -142,5 +149,37 @@ namespace SimplePiano
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (timer2.Enabled == false)
+            {
+                timer2.Start();
+                button1.Text = "Stop Timer";
+            }
+
+            else
+            {
+                timer2.Stop();
+                button1.Text = "Start Timer";
+            }
+
+        }
+        int t = 0;
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            t++;
+            textBox1.Text = t.ToString();
+        }
     }
 }
+
+//To Completion//
+/*
+ * sharp next to black keys notes
+ * stop sound on mouse up 
+ * static stave
+ * dot minim semibreve
+ * base clef and treble clef
+ */

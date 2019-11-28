@@ -14,11 +14,13 @@ namespace SimplePiano
     public class MusKey : System.Windows.Forms.Button
     {
         private int musicNote; //determines pitch mapped to number
-        public int notePitch;
+        public int noteNo;
+        public bool sharp;
 
-        public MusKey(int iNote, int x, int y) : base()
+        public MusKey(int iNote, int x, int y, bool iSharp) : base()
         {
-            notePitch = iNote;
+            noteNo = iNote;
+            sharp = iSharp;
             this.BackColor = Color.White;
             this.Location = new Point(x, y);
             this.Size = new Size(30, 120);
@@ -35,7 +37,7 @@ namespace SimplePiano
 
     public class BlackMusKey : MusKey
     {
-        public BlackMusKey(int iNote, int x, int y) : base(iNote, x, y)
+        public BlackMusKey(int iNote, int x, int y, bool iSharp) : base(iNote, x, y, iSharp)
         {
             this.BackColor = Color.Black;
             this.Size = new Size(30, 70);
